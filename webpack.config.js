@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://www.example.com/"; // Change this to your production URL
+const urlProd = "https://my-xlclean.vercel.app/"; 
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
