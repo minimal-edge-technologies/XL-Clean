@@ -1,0 +1,893 @@
+/* Excel Data Cleaner Pro - Premium UI */
+
+:root {
+    --primary: #6366f1;           /* Indigo */
+    --primary-hover: #4f46e5;     /* Darker indigo */
+    --primary-light: #eef2ff;     /* Light indigo */
+    --success: #22c55e;           /* Green */
+    --error: #ef4444;             /* Red */
+    --warning: #f59e0b;           /* Amber */
+    --text-primary: #111827;      /* Near black */
+    --text-secondary: #6b7280;    /* Gray */
+    --border: #e5e7eb;            /* Light gray */
+    --background: #f9fafb;        /* Off-white */
+    --card: #ffffff;              /* White */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius: 8px;                /* Border radius */
+    --transition: 200ms ease;     /* Animation speed */
+  }
+  
+  /* Base styles */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background-color: var(--background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* App container */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  /* App header */
+  .app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: white;
+    box-shadow: var(--shadow);
+    z-index: 10;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .logo i {
+    font-size: 22px;
+  }
+  
+  .logo h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .icon-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition);
+  }
+  
+  .icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  .icon-button:active {
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+  
+  .icon-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* App content */
+  .app-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    overflow: hidden;
+  }
+  
+  /* Feature navigation */
+  .feature-nav {
+    margin-bottom: 16px;
+    background-color: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  
+  #tab-list {
+    display: flex;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+    border-bottom: 1px solid var(--border);
+  }
+  
+  #tab-list::-webkit-scrollbar {
+    display: none;  /* Chrome/Safari/Opera */
+  }
+  
+  .tab-button {
+    padding: 14px 18px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition);
+    position: relative;
+  }
+  
+  .tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+  }
+  
+  .tab-button.active {
+    color: var(--primary);
+  }
+  
+  .tab-button.active::after {
+    transform: scaleX(1);
+  }
+  
+  .tab-button:hover:not(.active) {
+    color: var(--primary-hover);
+    background-color: rgba(99, 102, 241, 0.05);
+  }
+  
+  /* Tab content container */
+  .tab-content-container {
+    flex: 1;
+    overflow-y: auto;
+    background-color: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0;
+  }
+  
+  /* Individual tab content */
+  .tab-content {
+    display: none;
+    padding: 24px;
+    height: 100%;
+  }
+  
+  .tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Feature introduction section */
+  .feature-intro {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .feature-icon i {
+    font-size: 20px;
+  }
+  
+  .feature-details h2 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .feature-details p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  /* Information message */
+  .info-message {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background-color: rgba(99, 102, 241, 0.08);
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+  }
+  
+  .info-message i {
+    color: var(--primary);
+    font-size: 18px;
+    margin-top: 2px;
+  }
+  
+  .info-message p {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Action area for buttons */
+  .action-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  .button-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  /* Buttons */
+  .primary-button,
+  .secondary-button {
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition);
+    min-height: 40px;
+  }
+  
+  .primary-button {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .primary-button:hover {
+    background-color: var(--primary-hover);
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+  }
+  
+  .primary-button:active {
+    transform: translateY(0);
+  }
+  
+  .secondary-button {
+    background-color: white;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+  
+  .secondary-button:hover {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+  }
+  
+  .secondary-button:active {
+    background-color: #f3f4f6;
+  }
+  
+  .large {
+    padding: 12px 24px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+  
+  /* Form controls */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  .group-label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text-primary);
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  }
+  
+  input[type="text"]::placeholder {
+    color: #9ca3af;
+  }
+  
+  /* Radio buttons */
+  .radio-group {
+    margin-bottom: 24px;
+  }
+  
+  .radio-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .radio-option:last-child {
+    margin-bottom: 0;
+  }
+  
+  .radio-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    accent-color: var(--primary);
+  }
+  
+  .radio-option label {
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  /* Checkboxes */
+  .checkbox-container {
+    padding: 16px;
+    background-color: rgba(243, 244, 246, 0.5);
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+  }
+  
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .checkbox-option:last-child {
+    margin-bottom: 0;
+  }
+  
+  .checkbox-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    accent-color: var(--primary);
+  }
+  
+  .checkbox-option label {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .checkbox-option label i {
+    color: var(--primary);
+  }
+  
+  /* Loading overlay */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .loader {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(99, 102, 241, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s infinite linear;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-text {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary);
+  }
+  
+  .progress-bar {
+    width: 240px;
+    height: 4px;
+    background-color: rgba(99, 102, 241, 0.2);
+    border-radius: 2px;
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .progress-bar-fill {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+  }
+  
+  .progress-text {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--primary);
+  }
+  
+  /* Notification container */
+  .notification-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 320px;
+  }
+  
+  /* Dialog styles */
+  .dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 480px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 9997;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: scale-in 0.2s ease;
+  }
+  
+  @keyframes scale-in {
+    from { transform: translate(-50%, -50%) scale(0.95); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+  
+  .dialog-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9996;
+    backdrop-filter: blur(2px);
+  }
+  
+  .dialog-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .dialog-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .dialog-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .dialog-footer {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    background-color: #f9fafb;
+  }
+  
+  /* Preview styles */
+  .preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .preview-column h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .preview-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  
+  .preview-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .preview-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+  }
+  
+  .changed-cell {
+    background-color: rgba(99, 102, 241, 0.1);
+    font-weight: 500;
+  }
+  
+  .empty-cell {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  
+  /* Notification styles */
+  .toast-notification {
+    padding: 12px 16px;
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: slide-in 0.3s ease;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .toast-notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+  }
+  
+  .toast-notification.success::before {
+    background-color: var(--success);
+  }
+  
+  .toast-notification.error::before {
+    background-color: var(--error);
+  }
+  
+  .toast-notification.info::before {
+    background-color: var(--primary);
+  }
+  
+  .toast-notification i {
+    margin-top: 2px;
+  }
+  
+  .toast-notification.success i {
+    color: var(--success);
+  }
+  
+  .toast-notification.error i {
+    color: var(--error);
+  }
+  
+  .toast-notification.info i {
+    color: var(--primary);
+  }
+  
+  .toast-content {
+    flex: 1;
+  }
+  
+  .toast-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  
+  .toast-message {
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+  
+  .toast-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px;
+    margin-left: 8px;
+    opacity: 0.7;
+  }
+  
+  .toast-close:hover {
+    opacity: 1;
+  }
+  
+  @keyframes slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .app-header {
+      padding: 12px 16px;
+    }
+    
+    .logo h1 {
+      font-size: 16px;
+    }
+    
+    .tab-content {
+      padding: 16px;
+    }
+    
+    .feature-intro {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    
+    .button-group {
+      grid-template-columns: 1fr;
+    }
+    
+    .preview-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .notification-container {
+      right: 16px;
+      left: 16px;
+      max-width: none;
+    }
+  }
+  
+  /* Animation utilities */
+  .fade-in {
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.3s ease;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.2s;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+  }
+
+  .ms-Dialog {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 9000 !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden;
+  }
+  
+  .ms-Dialog-main {
+    position: relative !important;
+    background-color: white !important;
+    width: 90% !important;
+    max-width: 600px !important;
+    max-height: 90vh !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-lg) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    animation: dialog-appear 0.3s ease-out !important;
+  }
+  
+  @keyframes dialog-appear {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Dialog header */
+  .ms-Dialog-title {
+    padding: 20px !important;
+    border-bottom: 1px solid var(--border) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+  }
+  
+  /* Dialog content */
+  .ms-Dialog-content {
+    padding: 20px !important;
+    overflow-y: auto !important;
+    flex: 1 !important;
+    max-height: calc(90vh - 130px) !important;
+  }
+  
+  /* Dialog footer */
+  .ms-Dialog-actions {
+    padding: 16px 20px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 12px !important;
+    border-top: 1px solid var(--border) !important;
+    background-color: var(--background) !important;
+  }
+  
+  /* Form elements styling consistent with the app */
+  .settings-tab-panel .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .settings-tab-panel .group-label {
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: block;
+  }
+  
+  .settings-tab-panel .recent-searches {
+    margin-top: 20px;
+  }
+  
+  /* Override any MS-specific styles that might conflict */
+  .ms-Dialog button {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  .ms-Dialog input[type="checkbox"],
+  .ms-Dialog input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    accent-color: var(--primary);
+  }
+  
+  .ms-Dialog label {
+    margin: 0;
+    cursor: pointer;
+    font-weight: 400;
+  }

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Excel Data Cleaner Pro</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-broom"></i>
+                <h1>Excel Data Cleaner Pro</h1>
+            </div>
+            <div class="header-actions">
+                <button id="undo-button" class="icon-button" title="Undo" disabled>
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button id="settings-button" class="icon-button" title="Settings">
+                    <i class="fas fa-cog"></i>
+                  </button>
+                  <button id="help-button" class="icon-button" title="Help">
+                    <i class="fas fa-question-circle"></i>
+                  </button>
+            </div>
+        </header>
+        
+        <main class="app-content">
+            <!-- Feature Navigation -->
+            <nav class="feature-nav">
+                <ul id="tab-list">
+                    <li>
+                        <button id="tab-oneclick" class="tab-button active" data-tab="oneclick">
+                            <i class="fas fa-magic"></i>
+                            <span>One-Click Cleanup</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="tab-dates" class="tab-button" data-tab="dates">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Format Dates</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="tab-replace" class="tab-button" data-tab="replace">
+                            <i class="fas fa-search"></i>
+                            <span>Find & Replace</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="tab-duplicates" class="tab-button" data-tab="duplicates">
+                            <i class="fas fa-clone"></i>
+                            <span>Remove Duplicates</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="tab-spaces" class="tab-button" data-tab="spaces">
+                            <i class="fas fa-compress-alt"></i>
+                            <span>Trim Spaces</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="tab-case" class="tab-button" data-tab="case">
+                            <i class="fas fa-font"></i>
+                            <span>Text Case</span>
+                        </button>
+                    </li>
+                    
+                </ul>
+            </nav>
+
+            <!-- Tab Content -->
+            <div class="tab-content-container">
+                <!-- Remove Duplicates Tab -->
+                <section id="duplicates-tab" class="tab-content">
+                    <div class="feature-intro">
+                        <div class="feature-icon">
+                            <i class="fas fa-clone"></i>
+                        </div>
+                        <div class="feature-details">
+                            <h2>Remove Duplicates</h2>
+                            <p>Automatically find and remove duplicate rows in your data, keeping only unique entries.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-message">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Select the range containing duplicates, then click the button below to remove them.</p>
+                    </div>
+                    
+                    <div class="action-area">
+                        <button id="remove-duplicates-button" class="primary-button large">
+                            <i class="fas fa-clone"></i>
+                            <span>Remove Duplicates</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Trim Spaces Tab -->
+                <section id="spaces-tab" class="tab-content">
+                    <div class="feature-intro">
+                        <div class="feature-icon">
+                            <i class="fas fa-compress-alt"></i>
+                        </div>
+                        <div class="feature-details">
+                            <h2>Trim Spaces</h2>
+                            <p>Remove extra spaces from the beginning, end, or middle of text in your cells.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-message">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Select cells with extra spaces, then click the button below to trim them.</p>
+                    </div>
+                    
+                    <div class="action-area">
+                        <button id="trim-spaces-button" class="primary-button large">
+                            <i class="fas fa-compress-alt"></i>
+                            <span>Trim Extra Spaces</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Text Case Tab -->
+                <section id="case-tab" class="tab-content">
+                    <div class="feature-intro">
+                        <div class="feature-icon">
+                            <i class="fas fa-font"></i>
+                        </div>
+                        <div class="feature-details">
+                            <h2>Text Case Conversion</h2>
+                            <p>Transform the case of text in your cells to ensure consistent formatting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-message">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Select text cells to convert, then choose an option below.</p>
+                    </div>
+                    
+                    <div class="action-area button-group">
+                        <button id="uppercase-button" class="secondary-button">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>UPPERCASE</span>
+                        </button>
+                        <button id="lowercase-button" class="secondary-button">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>lowercase</span>
+                        </button>
+                        <button id="propercase-button" class="primary-button">
+                            <i class="fas fa-font"></i>
+                            <span>Proper Case</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Find & Replace Tab -->
+                <section id="replace-tab" class="tab-content">
+                    <div class="feature-intro">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="feature-details">
+                            <h2>Find & Replace</h2>
+                            <p>Search for specific text and replace it with new text across multiple cells at once.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-message">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Enter text to find and replace in the selected range.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="find-text">Find what:</label>
+                        <input id="find-text" type="text" placeholder="Text to search for...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="replace-text">Replace with:</label>
+                        <input id="replace-text" type="text" placeholder="Text to replace with...">
+                    </div>
+                    
+                    <div class="action-area">
+                        <button id="find-replace-button" class="primary-button">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Replace All</span>
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Date Standardization Tab -->
+                <section id="dates-tab" class="tab-content">
+                    <div class="feature-intro">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="feature-details">
+                            <h2>Date Standardization</h2>
+                            <p>Convert dates to a consistent format across your spreadsheet for better sorting and filtering.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-message">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Select cells containing dates, then choose a format below to standardize them.</p>
+                    </div>
+                    
+                    <div class="form-group radio-group">
+                        <label class="group-label">Choose date format:</label>
+                        <div class="radio-option">
+                            <input id="date-format-1" type="radio" name="dateFormat" value="MM/DD/YYYY" checked>
+                            <label for="date-format-1">MM/DD/YYYY (US Format)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input id="date-format-2" type="radio" name="dateFormat" value="DD/MM/YYYY">
+                            <label for="date-format-2">DD/MM/YYYY (European Format)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input id="date-format-3" type="radio" name="dateFormat" value="YYYY-MM-DD">
+                            <label for="date-format-3">YYYY-MM-DD (ISO Format)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="action-area">
+                        <button id="standardize-dates-button" class="primary-button">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Standardize Dates</span>
+                        </button>
+                        <button id="detect-format-button" class="secondary-button">
+                            <i class="fas fa-magic"></i>
+                            <span>Detect Format</span>
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- One-Click Cleanup Tab -->
+                <section id="oneclick-tab" class="tab-content active">
+                    <div class="feature-intro">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <div class="feature-details">
+                            <h2>One-Click Cleanup</h2>
+                            <p>Apply multiple cleaning operations at once to save time and effort.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-message">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Select the range to clean, then choose which operations to perform.</p>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <label class="group-label">Operations to perform:</label>
+                        <div class="checkbox-option">
+                            <input id="cleanup-duplicates" type="checkbox" checked>
+                            <label for="cleanup-duplicates">
+                                <i class="fas fa-clone"></i>
+                                <span>Remove duplicates</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input id="cleanup-spaces" type="checkbox" checked>
+                            <label for="cleanup-spaces">
+                                <i class="fas fa-compress-alt"></i>
+                                <span>Trim spaces</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input id="cleanup-case" type="checkbox" checked>
+                            <label for="cleanup-case">
+                                <i class="fas fa-font"></i>
+                                <span>Fix text case (proper case for text)</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input id="cleanup-formatting" type="checkbox" checked>
+                            <label for="cleanup-formatting">
+                                <i class="fas fa-percentage"></i>
+                                <span>Fix number formatting</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="action-area">
+                        <button id="one-click-cleanup-button" class="primary-button large">
+                            <i class="fas fa-magic"></i>
+                            <span>Clean Everything</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loader"></div>
+        <p id="loading-text" class="loading-text">Processing data...</p>
+        <div class="progress-bar" id="loading-progress-container" style="display: none;">
+            <div class="progress-bar-fill" id="loading-progress-fill" style="width: 0%"></div>
+            <span class="progress-text" id="loading-progress-text">0%</span>
+        </div>
+    </div>
+
+    <!-- Notifications container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <script type="text/javascript" src="taskpane.js"></script>
+</body>
+</html>
